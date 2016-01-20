@@ -54,7 +54,7 @@ class LxmlParserLinkExtractor(object):
             if url is None:
                 continue
             if isinstance(url, unicode):
-                url = url.encode(response_encoding)
+                url = url.encode(response_encoding, 'ignore')
             # to fix relative links after process_value
             url = urljoin(response_url, url)
             link = Link(url, _collect_string_content(el) or u'',
@@ -108,4 +108,3 @@ class LxmlLinkExtractor(FilteringLinkExtractor):
             links = self._extract_links(doc, response.url, response.encoding, base_url)
             all_links.extend(self._process_links(links))
         return unique_list(all_links)
-
